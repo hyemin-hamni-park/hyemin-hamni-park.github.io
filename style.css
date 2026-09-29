@@ -1,0 +1,142 @@
+/* Color palette
+   #F2E9EB  blush    (page background)
+   #FFFFFF  white    (header bar)
+   #31383F  charcoal (text, unselected header links)
+   #DD8EA4  rose     (accent: current page in header, link underlines, dividers) */
+:root {
+  --blush: #F2E9EB;
+  --white: #FFFFFF;
+  --charcoal: #31383F;
+  --rose: #DD8EA4;
+
+  --bg: var(--blush);
+  --text: var(--charcoal);
+  --muted: rgba(49, 56, 63, 0.72);
+  --nav-bg: var(--white);
+  --nav-text: var(--charcoal);
+  --accent: var(--rose);
+  --link: var(--charcoal);
+  --link-hover-bg: rgba(221, 142, 164, 0.22);
+}
+/* Dark mode (for visitors whose devices are set to dark): same palette, flipped */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: var(--charcoal);
+    --text: var(--blush);
+    --muted: rgba(242, 233, 235, 0.75);
+    --nav-bg: #262c32;
+    --nav-text: var(--blush);
+    --link: var(--blush);
+    --link-hover-bg: rgba(221, 142, 164, 0.25);
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+  font-size: 12pt;
+  line-height: 1.65;
+}
+a {
+  color: var(--link);
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+a:hover { background: var(--link-hover-bg); }
+p { margin: 0 0 1.1rem; }
+
+/* Top navigation bar */
+.site-nav {
+  background: var(--nav-bg);
+  border-bottom: 2px solid var(--accent);
+}
+.site-nav .inner {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+}
+.site-name {
+  font-weight: 600;
+  color: var(--nav-text);
+  text-decoration: none;
+}
+.site-nav a:hover { background: none; }
+.site-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1.5rem;
+}
+.site-nav ul a {
+  color: var(--nav-text);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+}
+.site-nav ul a:hover { border-bottom-color: var(--nav-text); }
+.site-nav ul a[aria-current="page"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* Page body */
+main {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 3.5rem 1.25rem 3rem;
+}
+h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 0.5rem;
+}
+.affil {
+  margin: 0 0 2.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid var(--accent);
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+/* Home: bio on the left, photo on the right, in a 2:1 width ratio */
+.profile {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+}
+.bio { flex: 2 1 0; min-width: 0; }
+.photo {
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background: rgba(221, 142, 164, 0.25);
+}
+
+footer {
+  max-width: 60rem;
+  margin: 2rem auto 0;
+  padding: 0 1.25rem 3rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* Phones: photo stacks above the bio */
+@media (max-width: 700px) {
+  main { padding-top: 2.5rem; }
+  h1 { font-size: 1.9rem; }
+  .profile { flex-direction: column-reverse; gap: 1.75rem; }
+  .photo { flex: none; width: 12rem; }
+}
